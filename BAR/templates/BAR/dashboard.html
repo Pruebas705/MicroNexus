@@ -1,0 +1,191 @@
+{% extends "BAR/base.html" %}
+
+{% block titulo %}BAR{% endblock %}
+
+{% block estilos_extra %}
+<style>
+    .bienvenida {
+        margin-bottom: 1.5rem;
+    }
+    .bienvenida h2 {
+        font-size: 1.4rem;
+        font-weight: 700;
+    }
+    .bienvenida p {
+        color: #64748b;
+        font-size: 0.9rem;
+        margin-top: 0.25rem;
+    }
+
+    .stat-card {
+        background: #fff;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        padding: 1.25rem;
+    }
+    .stat-card .etiqueta {
+        font-size: 0.8rem;
+        color: #64748b;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+    .stat-card .valor {
+        font-size: 0.8rem;
+        font-weight: 700;
+        color: #1e293b;
+        margin-top: 0.25rem;
+    }
+    .stat-card .descripcion {
+        font-size: 0.8rem;
+        color: #94a3b8;
+        margin-top: 0.25rem;
+    }
+
+    .acciones-rapidas {
+        margin-top: 1.5rem;
+    }
+    .acciones-rapidas h3 {
+        font-size: 0.95rem;
+        font-weight: 600;
+        margin-bottom: 0.75rem;
+        color: #374151;
+    }
+    .acciones-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        gap: 0.75rem;
+    }
+    .accion-btn {
+        background: #fff;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        padding: 1rem;
+        text-align: center;
+        text-decoration: none;
+        color: #1e293b;
+        font-size: 0.85rem;
+        font-weight: 500;
+        transition: border-color 0.15s, box-shadow 0.15s;
+        display: block;
+    }
+    .accion-btn:hover {
+        border-color: #2563eb;
+        box-shadow: 0 0 0 3px #dbeafe;
+    }
+    .accion-btn .icono {
+        font-size: 1.5rem;
+        display: block;
+        margin-bottom: 0.5rem;
+    }
+
+    .info-sesion {
+        margin-top: 1.5rem;
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        padding: 1rem 1.25rem;
+        font-size: 0.85rem;
+        color: #64748b;
+    }
+    .info-sesion strong { color: #374151; }
+</style>
+{% endblock %}
+
+{% block contenido %}
+<div class="bienvenida">
+    <h2>Bienvenido, {{ usuario.get_full_name|default:usuario.username }}</h2>
+</div>
+
+{# ── DASHBOARD ADMINISTRADOR ── #}
+{% if perfil.rol == "administrador" %}
+<div class="grid-4">
+    <div class="stat-card">
+        <div class="etiqueta">Usuarios</div>
+        <div class="valor">Esperando daticos...</div>
+        <div class="descripcion">Registrados en el sistema</div>
+    </div>
+    <div class="stat-card">
+        <div class="etiqueta">Sedes</div>
+        <div class="valor">Esperando daticos...</div>
+        <div class="descripcion">Sedes activas</div>
+    </div>
+    <div class="stat-card">
+        <div class="etiqueta">Productos</div>
+        <div class="valor">Esperando daticos...</div>
+        <div class="descripcion">En inventario</div>
+    </div>
+    <div class="stat-card">
+        <div class="etiqueta">Pedidos hoy</div>
+        <div class="valor">Esperando daticos...</div>
+        <div class="descripcion">Abiertos y cerrados</div>
+    </div>
+</div>
+
+<div class="acciones-rapidas">
+    <h3>Acciones rápidas</h3>
+    <div class="acciones-grid">
+        <a href="#" class="accion-btn"></span>Gestionar usuarios</a>
+        <a href="#" class="accion-btn"></span>Gestionar sedes</a>
+        <a href="#" class="accion-btn"></span>Productos</a>
+        <a href="#" class="accion-btn"></span>Inventario</a>
+        <a href="#" class="accion-btn"></span>Pedidos</a>
+        <a href="#" class="accion-btn"></span>Reportes</a>
+    </div>
+</div>
+
+{# ── DASHBOARD CAJERO ── #}
+{% elif perfil.rol == "cajero" %}
+<div class="grid-3">
+    <div class="stat-card">
+        <div class="etiqueta">Pedidos abiertos</div>
+        <div class="valor">Esperando daticos...</div>
+        <div class="descripcion">Pendientes de cierre</div>
+    </div>
+    <div class="stat-card">
+        <div class="etiqueta">Pedidos cerrados hoy</div>
+        <div class="valor">Esperando daticos...</div>
+        <div class="descripcion">Completados</div>
+    </div>
+    <div class="stat-card">
+        <div class="etiqueta">Productos disponibles</div>
+        <div class="valor">Esperando daticos...</div>
+        <div class="descripcion">En stock</div>
+    </div>
+</div>
+
+<div class="acciones-rapidas">
+    <h3>Acciones rápidas</h3>
+    <div class="acciones-grid">
+        <a href="#" class="accion-btn"></span>Nuevo pedido</a>
+        <a href="#" class="accion-btn"></span>Ver pedidos</a>
+        <a href="#" class="accion-btn"></span>Consultar productos</a>
+    </div>
+</div>
+
+{# ── DASHBOARD MESERO ── #}
+{% elif perfil.rol == "mesero" %}
+<div class="grid-2">
+    <div class="stat-card">
+        <div class="etiqueta">Ordenes tomadas</div>
+        <div class="valor">Esperando daticos...</div>
+        <div class="descripcion">En curso</div>
+    </div>
+    <div class="stat-card">
+        <div class="etiqueta">Productos disponibles</div>
+        <div class="valor">Esperando daticos...</div>
+        <div class="descripcion">Para agregar a pedidos</div>
+    </div>
+</div>
+
+<div class="acciones-rapidas">
+    <h3>Acciones rápidas</h3>
+    <div class="acciones-grid">
+        <a href="#" class="accion-btn"></span>Nuevo pedido</a>
+        <a href="#" class="accion-btn"></span>Mis pedidos</a>
+        <a href="#" class="accion-btn"></span>Ver productos</a>
+    </div>
+</div>
+{% endif %}
+
+
+{% endblock %}
